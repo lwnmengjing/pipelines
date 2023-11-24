@@ -14,10 +14,10 @@
 
 # 1. Build api server application
 FROM golang:1.20.4-buster as builder
-RUN apt-get update && apt-get install -y cmake clang musl-dev openssl gcc-arm-linux-gnueabihf
+RUN apt-get update && apt-get install -y cmake clang musl-dev openssl gcc-aarch64-linux-gnu
 WORKDIR /go/src/github.com/kubeflow/pipelines
 COPY . .
-RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 GOOS=linux GOARCH=arm64 GOARM=7  go build -o /bin/apiserver backend/src/apiserver/*.go
+RUN GO111MODULE=on CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ CGO_ENABLED=1 GOOS=linux GOARCH=arm64 GOARM=7  go build -o /bin/apiserver backend/src/apiserver/*.go
 # Check licenses and comply with license terms.
 #RUN ./hack/install-go-licenses.sh
 ## First, make sure there's no forbidden license.
