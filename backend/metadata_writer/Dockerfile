@@ -1,8 +1,8 @@
 # ml-metadata package depends on tensorflow package
 # 使用官方的 Ubuntu 20.04 镜像作为基础镜像
-FROM fnndsc/ubuntu-python3
+FROM python:3.8.10
 
-ENV DEBIAN_FRONTEND=noninteractive
+#ENV DEBIAN_FRONTEND=noninteractive
 # 安装依赖包
 #RUN apt-get update
 #RUN apt-get install -y software-properties-common
