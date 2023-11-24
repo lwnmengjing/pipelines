@@ -17,7 +17,7 @@ FROM python:3.8.10
 #RUN python3 -m distutils.cmd
 #RUN python3 -m pip install distutils
 
-RUN python3 -m pip install ml-metadata==1.14.0
+RUN python3 -m pip install ml-metadata==0.13.1.dev0
 COPY backend/metadata_writer/requirements.txt /kfp/metadata_writer/
 RUN python3 -m pip install -r /kfp/metadata_writer/requirements.txt
 
