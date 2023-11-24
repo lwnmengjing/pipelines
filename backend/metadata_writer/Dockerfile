@@ -1,6 +1,6 @@
 # ml-metadata package depends on tensorflow package
 # 使用官方的 Ubuntu 20.04 镜像作为基础镜像
-FROM ubuntu:20.04
+FROM ubuntu
 
 # 安装依赖包
 RUN apt-get update && \
