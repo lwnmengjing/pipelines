@@ -8,6 +8,7 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update -y
+RUN apt-get install python3-distutils
 RUN apt-get install -y python3.8 python3-pip
 
 # 设置默认的 Python 版本
