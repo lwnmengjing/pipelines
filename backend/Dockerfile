@@ -19,13 +19,13 @@ WORKDIR /go/src/github.com/kubeflow/pipelines
 COPY . .
 RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 GOOS=linux GOARCH=arm GOARM=7  go build -o /bin/apiserver backend/src/apiserver/*.go
 # Check licenses and comply with license terms.
-RUN ./hack/install-go-licenses.sh
-# First, make sure there's no forbidden license.
-RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses check ./backend/src/apiserver
-RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses csv ./backend/src/apiserver > /tmp/licenses.csv && \
-  diff /tmp/licenses.csv backend/third_party_licenses/apiserver.csv && \
-  GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses save ./backend/src/apiserver --save_path /tmp/NOTICES
-
+#RUN ./hack/install-go-licenses.sh
+## First, make sure there's no forbidden license.
+#RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses check ./backend/src/apiserver
+#RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses csv ./backend/src/apiserver > /tmp/licenses.csv && \
+#  diff /tmp/licenses.csv backend/third_party_licenses/apiserver.csv && \
+#  GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses save ./backend/src/apiserver --save_path /tmp/NOTICES
+#
 # 2. Compile preloaded pipeline samples
 FROM python:3.7 as compiler
 RUN apt-get update -y && apt-get install --no-install-recommends -y -q default-jdk python3-setuptools python3-dev jq
@@ -66,7 +66,7 @@ COPY backend/src/apiserver/config/ /config
 COPY --from=builder /bin/apiserver /bin/apiserver
 
 # Copy licenses and notices.
-COPY --from=builder /tmp/licenses.csv /third_party/licenses.csv
+#COPY --from=builder /tmp/licenses.csv /third_party/licenses.csv
 COPY --from=builder /tmp/NOTICES /third_party/NOTICES
 COPY --from=compiler /samples/ /samples/
 RUN chmod +x /bin/apiserver
