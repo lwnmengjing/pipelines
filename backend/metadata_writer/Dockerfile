@@ -1,6 +1,7 @@
 # ml-metadata package depends on tensorflow package
 FROM python:3.8
 
+RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install tensorflow==2.13.1
 RUN python3 -m pip install tensorflow-metadata
 RUN python3 -m pip install tensorflow-metadata-store
