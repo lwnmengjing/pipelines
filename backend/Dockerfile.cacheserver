@@ -21,7 +21,7 @@ RUN apk update && apk upgrade && \
 WORKDIR /go/src/github.com/kubeflow/pipelines
 COPY . .
 
-RUN GO111MODULE=on go build -o /bin/cache_server backend/src/cache/*.go
+RUN GO111MODULE=on CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ CGO_ENABLED=1 GOOS=linux GOARCH=arm64 GOARM=7 go build -o /bin/cache_server backend/src/cache/*.go
 
 # Check licenses and comply with license terms.
 RUN ./hack/install-go-licenses.sh
