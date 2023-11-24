@@ -21,10 +21,10 @@ RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_EN
 # Check licenses and comply with license terms.
 RUN ./hack/install-go-licenses.sh
 # First, make sure there's no forbidden license.
-RUN go-licenses check ./backend/src/apiserver
-RUN go-licenses csv ./backend/src/apiserver > /tmp/licenses.csv && \
+RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses check ./backend/src/apiserver
+RUN GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses csv ./backend/src/apiserver > /tmp/licenses.csv && \
   diff /tmp/licenses.csv backend/third_party_licenses/apiserver.csv && \
-  go-licenses save ./backend/src/apiserver --save_path /tmp/NOTICES
+  GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go-licenses save ./backend/src/apiserver --save_path /tmp/NOTICES
 
 # 2. Compile preloaded pipeline samples
 FROM python:3.7 as compiler

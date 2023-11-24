@@ -17,4 +17,4 @@
 set -ex
 
 # TODO: update to a released version.
-go install github.com/google/go-licenses@d483853
+GO111MODULE=on CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ CGO_ENABLED=1 go install github.com/google/go-licenses@d483853
